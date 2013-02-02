@@ -3,6 +3,6 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Welcome extends OSF_Controller {
+abstract class OSF_Controller extends CI_Controller {
     
 }
