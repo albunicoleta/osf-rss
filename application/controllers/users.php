@@ -25,5 +25,9 @@ class Users extends OSF_Controller {
         $this->user->create($this->input->post());
     }
 
-}
+    public function postUse()
+    {
+        $this->load->model('user');
+    }
 
+}
