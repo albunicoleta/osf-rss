@@ -25,7 +25,12 @@ class Users extends OSF_Controller {
         $this->user->create($this->input->post());
     }
 
-    public function postUse()
+     public function login()
+    {
+        $this->load->helper('url');
+        $this->load->view("user/login");
+    }
+    public function postLogin()
     {
         $this->load->model('user');
     }

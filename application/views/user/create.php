@@ -16,13 +16,6 @@
         <label for="email"> E-mail </label>
         <input type="text" name="email_adress"/>
         <input type="submit" name="Register" value="Register"/>           
-    </form>
-    <form action="<?php echo base_url('users/postUse'); ?>" method="post" />
-        <label for="username">Username</label>
-        <input type="text" name="username"/>
-        <label for="password">Password</label>
-        <input type="password" name="password"/>   
-        <input type="submit" name="Register" value="Log In"/>
-    </form>    
+    </form>  
 </body>
 </html>
