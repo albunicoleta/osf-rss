@@ -20,5 +20,19 @@ class User extends CI_Model {
         $this->db->insert('users', $this);
     }
 
-}
+    /*
+     * login by username and password
+     */
 
+    public function login($username, $password)
+    {
+        $this->load->database();
+        $query = $this->db->get_where('users', array('username' => $username, 'password' => $password));
+        if ($query->num_rows()) {
+            echo "exista";
+        } else {
+            echo "nu exista";
+        }
+    }
+
+}

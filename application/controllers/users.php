@@ -32,7 +32,9 @@ class Users extends OSF_Controller {
     }
     public function postLogin()
     {
+        $postData = $this->input->post();
         $this->load->model('user');
+        $this->user->login($postData["username"],$postData["password"]);
     }
 
 }
