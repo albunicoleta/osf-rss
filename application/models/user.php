@@ -20,19 +20,34 @@ class User extends CI_Model {
         $this->db->insert('users', $this);
     }
 
-    /*
-     * login by username and password
+    /**
+     * verify if the username/password pair is valid;
+     * 
+     * @return bool
      */
-
-    public function login($username, $password)
+    public function canLogin($username, $password)
     {
         $this->load->database();
         $query = $this->db->get_where('users', array('username' => $username, 'password' => $password));
+        /* if it founds at least one row then its valid */
         if ($query->num_rows()) {
-            echo "exista";
-        } else {
-            echo "nu exista";
-        }
+            return TRUE;
+        } 
+        
+        return FALSE;
+    }
+    
+    /**
+     * 
+     * @TODO implemented
+     */
+    public function getUserByUsername($username){
+        $this->username = 'alttest';
+        $this->id = 'asdasd';
+        $this->password = 'asads';
+        $this->email = 'asdadasdasd@aaa.ro';
+        //return current class instance
+        return $this;
     }
 
 }

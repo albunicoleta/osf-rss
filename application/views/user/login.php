@@ -1,7 +1,7 @@
 <html>
     <head>
         <style>
-            body {background-color: rgb;}
+            body {background-color: lightblue;}
             label {display:block;}
         </style>
     </head>
@@ -15,3 +15,4 @@
     </form>  
     </body>    
 </html>
+<?php echo $this->session->userdata('username') ?>
