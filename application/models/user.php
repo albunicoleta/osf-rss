@@ -49,5 +49,12 @@ class User extends CI_Model {
         //return current class instance
         return $this;
     }
+    
+    public function getUserByEmail($email)
+    {
+        $this->load->database();
+        $query = $this->db->get_where('users', array('email' => $email));
+        
+    }    
 
 }

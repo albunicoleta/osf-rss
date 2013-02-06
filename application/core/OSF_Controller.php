@@ -55,5 +55,15 @@ abstract class OSF_Controller extends CI_Controller {
             self::$dbCreated = TRUE;
         }
     }
+    /**
+     * loads the template which loads the header, the footer
+     * and the main content
+     * @param type $mainContent
+     */
+    public function loadMainContent($mainContent)
+    {
+        $data['main_content'] = $mainContent; 
+        $this->load->view('includes/template', $data );
+    }
 
 }

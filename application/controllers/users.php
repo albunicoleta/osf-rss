@@ -14,7 +14,7 @@ class Users extends OSF_Controller {
     public function create()
     {
         $this->load->helper('url');
-        $this->load->view("user/create");
+        $this->loadMainContent('user/create');
     }
 
     /**
@@ -33,7 +33,7 @@ class Users extends OSF_Controller {
     public function login()
     {
         $this->load->helper('url');
-        $this->load->view("user/login");
+        $this->loadMainContent('user/login');
     }
     
     /**
