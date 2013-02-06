@@ -1,5 +1,10 @@
-<?php $this->load->view('includes/header'); ?>
+<html>
+    <?php $this->load->view('includes/header'); ?>
+    <body>
+        <div class="container">
+            <?php $this->load->view($main_content); ?>
+        </div>
 
-<?php $this->load->view($main_content); ?>
-
-<?php $this->load->view('includes/footer'); ?>
+    </body>
+    <?php $this->load->view('includes/footer'); ?>
+</html>
