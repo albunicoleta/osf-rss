@@ -1,12 +1,6 @@
 <html>
-    <head>
-        <style>
-            body {background-color: lightblue;}
-            label {display:block;}
-        </style>
-    </head>
     <body>
-        <form action="<?php echo base_url('users/postLogin'); ?>" method="post" />
+        <form class="form-center" action="<?php echo base_url('users/postLogin'); ?>" method="post" />
         <label for="username">Username</label>
         <input type="text" name="username"/>
         <label for="password">Password</label>
