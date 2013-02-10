@@ -8,9 +8,13 @@
  */
 class User extends CI_Model {
 
+    public $id;
+    public $username;
+    public $password;
+    public $email;
+
     public function create($data)
     {
-
         $this->load->database();
 
         $this->username = $data['username'];
@@ -32,29 +36,42 @@ class User extends CI_Model {
         /* if it founds at least one row then its valid */
         if ($query->num_rows()) {
             return TRUE;
-        } 
-        
+        }
+
         return FALSE;
     }
-    
+
     /**
+     * returns an User instance that has the provided username;
+     * if no user with the provided username has been found it
+     * will return false;
      * 
-     * @TODO implemented
+     * @return User
      */
-    public function getUserByUsername($username){
-        $this->username = 'alttest';
-        $this->id = 'asdasd';
-        $this->password = 'asads';
-        $this->email = 'asdadasdasd@aaa.ro';
-        //return current class instance
-        return $this;
+    public function getUserByUsername($username)
+    {
+        $this->load->database();
+        $query = $this->db->get_where('users', array('username' => $username));
+        //verify that at least one result was found
+        if ($query->num_rows()) {
+            //fetch row data from db
+            $row = $query->row();
+            //set row data on instance props
+            $this->username = $row->username;
+            $this->password = $row->password;
+            $this->email = $row->email;
+            $this->id = $row->id;
+
+            return $this;
+        }
+
+        return FALSE;
     }
-    
+
     public function getUserByEmail($email)
     {
         $this->load->database();
         $query = $this->db->get_where('users', array('email' => $email));
-        
-    }    
+    }
 
 }

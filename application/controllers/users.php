@@ -13,7 +13,6 @@ class Users extends OSF_Controller {
      */
     public function create()
     {
-        $this->load->helper('url');
         $this->loadMainContent('user/create');
     }
 
@@ -26,16 +25,15 @@ class Users extends OSF_Controller {
         $this->load->model('user');
         $this->user->create($this->input->post());
     }
-    
+
     /**
      * render login form;
      */
     public function login()
     {
-        $this->load->helper('url');
         $this->loadMainContent('user/login');
     }
-    
+
     /**
      * action will only be used for 
      * logging in valid users;
@@ -44,11 +42,16 @@ class Users extends OSF_Controller {
     {
         $postData = $this->input->post();
         $this->load->model('user');
-        if ($this->user->canLogin($postData["username"], $postData["password"])){
+
+        if ($this->user->canLogin($postData["username"], $postData["password"])) {
             /* we set user data on session */
-            $this->session->set_userdata('username',$postData['username']);
-            /** @TODO set email/user_id on session as well */
+            $loggedInUser = $this->user->getUserByUsername($postData["username"]);
+            $this->session->set_userdata('username', $postData["username"]);
+            $this->session->set_userdata('password', $postData["password"]);
+            $this->session->set_userdata('email', $loggedInUser->email);
+            $this->session->set_userdata('id', $loggedInUser->id);
         }
+        redirect(base_url());
     }
 
 }

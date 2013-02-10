@@ -7,7 +7,7 @@ class Welcome extends OSF_Controller {
 
     public function index()
     {
-        $this->load->view("welcome/index");
+        $this->loadMainContent('welcome/index');
     }
 
 }
