@@ -13,7 +13,7 @@ The lists of feeds that are long will be paginated.
 
 The user can set a RSS as “read” or “unread” and he/she also can organize and display the feeds by these criteria.
 
-Instalation
+Installation
 =======
 - Git clone the repository
 - mod_rewrite should be enabled (if not use index.php in URL)
