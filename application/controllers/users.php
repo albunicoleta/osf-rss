@@ -52,10 +52,10 @@ class Users extends OSF_Controller {
         }
         redirect(base_url());
     }
-    
+
     public function logout()
-    { 
-        if ($this->session->userdata('username')){
+    {
+        if ($this->session->userdata('username')) {
             //unset manually all user data because 
             //session destroy disabled flash functionallity
             $this->session->unset_userdata('username');
@@ -65,5 +65,19 @@ class Users extends OSF_Controller {
         }
         redirect(base_url());
     }
+
+    public function edit()
+    {
+        $this->loadMainContent('user/edit');  
+        if (!$this->session->userdata('username'))
+        {$this->session->set_flashdata('message', 'You must be logged in to perform this action!');
+        redirect(base_url());}
+    }
+    
+    
+    public function postEdit()
+    {
+        $this->load->model('user');
+    }    
 
 }
