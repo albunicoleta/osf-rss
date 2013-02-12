@@ -9,14 +9,15 @@
                     <?php if ($this->session->userdata('username')): ?>
                         <div class="navbar-text pull-right">
                             Hello <?php echo $this->session->userdata('username') ?>
-                            <a link href="<?php echo base_url('users/logout')?>">Logout</a>
+                            <a href="<?php echo base_url('users/logout')?>">Logout</a>
                         </div>
                         
                     <?php else: ?>
                         <form class="navbar-form pull-right" action="<?php echo base_url('users/postLogin'); ?>" method="post">
                             <input type="text" name="username" placeholder="Username"/>
                             <input type="password" name="password" placeholder="Password"/>
-                            <input type="submit" value="Sign In"/>
+                            <input class="btn" type="submit" value="Sign In"/>
+                            <a class="btn" href="<?php echo base_url('users/create')?>"> Register </a>
                         </form>
                     <?php endif; ?>                        
                 </div>
