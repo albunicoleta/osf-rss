@@ -47,9 +47,21 @@ class Users extends OSF_Controller {
             /* we set user data on session */
             $loggedInUser = $this->user->getUserByUsername($postData["username"]);
             $this->session->set_userdata('username', $postData["username"]);
-            $this->session->set_userdata('password', $postData["password"]);
             $this->session->set_userdata('email', $loggedInUser->email);
             $this->session->set_userdata('id', $loggedInUser->id);
+        }
+        redirect(base_url());
+    }
+    
+    public function logout()
+    { 
+        if ($this->session->userdata('username')){
+            //unset manually all user data because 
+            //session destroy disabled flash functionallity
+            $this->session->unset_userdata('username');
+            $this->session->unset_userdata('email');
+            $this->session->unset_userdata('id');
+            $this->session->set_flashdata('message', 'You have succesfully logged out!');
         }
         redirect(base_url());
     }

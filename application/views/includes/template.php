@@ -7,7 +7,11 @@
                     <h3 class="brand"> OSF Global </h3>
                     <?php /* if username exists in session then we have a logged in user*/ ?>
                     <?php if ($this->session->userdata('username')): ?>
-                        <span class="navbar-text pull-right">Hello <?php echo $this->session->userdata('username') ?></span>
+                        <div class="navbar-text pull-right">
+                            Hello <?php echo $this->session->userdata('username') ?>
+                            <a link href="<?php echo base_url('users/logout')?>">Logout</a>
+                        </div>
+                        
                     <?php else: ?>
                         <form class="navbar-form pull-right" action="<?php echo base_url('users/postLogin'); ?>" method="post">
                             <input type="text" name="username" placeholder="Username"/>
@@ -20,6 +24,9 @@
             </div>    
         </div>
         <div class="container">
+            <?php if($this->session->flashdata('message')): ?>
+                <div class="alert"><?php echo $this->session->flashdata('message'); ?></div>
+            <?php endif; ?>
             <?php $this->load->view($main_content); ?>
         </div>
         <div class="footer">
