@@ -1,9 +1,9 @@
-<form>
+<form action="<?php echo base_url('users/postEdit'); ?>" method="post">
     <label for="username"> New username </label>
-    <input type="text" name="new username"/>
+    <input type="text" name="username"/>
     <label for="password>"> New password </label>
-    <input type="password" name="new password"/>
+    <input type="password" name="password"/>
     <label for="email>"> New email </label>
-    <input type="text" name="new email"/>
+    <input type="text" name="email"/>
     <input type="submit" name="submit" value="Submit"/>
 </form>

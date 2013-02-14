@@ -68,16 +68,30 @@ class Users extends OSF_Controller {
 
     public function edit()
     {
-        $this->loadMainContent('user/edit');  
-        if (!$this->session->userdata('username'))
-        {$this->session->set_flashdata('message', 'You must be logged in to perform this action!');
-        redirect(base_url());}
+        $this->loadMainContent('user/edit');
+        if (!$this->session->userdata('username')) {
+            $this->session->set_flashdata('message', 'You must be logged in to perform this action!');
+            redirect(base_url());
+        }
     }
-    
-    
+
     public function postEdit()
     {
         $this->load->model('user');
-    }    
+        $this->user->update($this->input->post());
+        redirect(base_url());
+        
+        
+    }
+    
+    public function rssSources()
+    {
+        $this->loadMainContent('user/rssSources');
+        if (!$this->session->userdata('username')) {
+            $this->session->set_flashdata('message', 'You must be logged in to perform this action!');
+            redirect(base_url());
+        }
+    }
+    
 
 }

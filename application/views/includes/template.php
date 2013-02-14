@@ -10,6 +10,7 @@
                         <div class="navbar-text pull-right">
                             Hello <?php echo $this->session->userdata('username') ?>
                             <a href="<?php echo base_url('users/edit')?>">Edit account</a>
+                            <a href="<?php echo base_url('users/rssSources')?>">Rss Sources</a>
                             <a href="<?php echo base_url('users/logout')?>">Logout</a>                          
                         </div>
                         

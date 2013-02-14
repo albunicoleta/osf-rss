@@ -73,5 +73,29 @@ class User extends CI_Model {
         $this->load->database();
         $query = $this->db->get_where('users', array('email' => $email));
     }
-
+    
+    public function update($data)
+    {
+        $this->load->database();
+        unset($data['submit']); 
+        foreach($data as $key => $value){
+            if(!trim($value)){
+                unset($data[$key]);
+            }       
+        }
+        $this->db->where('id', $this->session->userdata('id'));
+        if($this->db->update('users', $data)){
+            $this->session->set_flashdata('message', 'You have succesfully edited your account!');   
+            if(isset($data['password'])){
+                unset($data['password']);
+            }
+            $this->session->set_userdata($data);
+        }
+        
+        
+        
+        
+    }    
+    
+    
 }
