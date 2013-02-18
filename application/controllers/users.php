@@ -53,7 +53,7 @@ class Users extends OSF_Controller {
             $this->session->set_userdata('email', $loggedInUser->email);
             $this->session->set_userdata('id', $loggedInUser->id);
         }else{
-            $this->session->set_flashdata('message', 'You have to register first!');
+            $this->session->set_flashdata('message', 'Your username or password is incorrect!');
         }
         redirect(base_url());      
     }
