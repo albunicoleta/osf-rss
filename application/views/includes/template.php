@@ -4,13 +4,14 @@
         <div class="navbar"> 
             <div class="navbar-inner">
                 <div class="container">
-                    <h3 class="brand"> OSF Global </h3>
+                    <a class="brand" href="<?php echo base_url('users/homepage')?>">OSF Global</a>
+<!--                    <h3 class="brand"> OSF Global </h3>-->
                     <?php /* if username exists in session then we have a logged in user*/ ?>
                     <?php if ($this->session->userdata('username')): ?>
                         <div class="navbar-text pull-right">
-                            Hello <?php echo $this->session->userdata('username') ?>
+                            Hello <?php echo $this->session->userdata('username') ?>!
                             <a href="<?php echo base_url('users/edit')?>">Edit account</a>
-                            <a href="<?php echo base_url('users/rssSources')?>">Rss Sources</a>
+                            <a href="<?php echo base_url('rssFeed/rssSources')?>">Rss Sources</a>
                             <a href="<?php echo base_url('users/logout')?>">Logout</a>                          
                         </div>
                         
