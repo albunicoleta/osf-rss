@@ -24,6 +24,9 @@ class Users extends OSF_Controller {
     {
         $this->load->model('user');
         $this->user->create($this->input->post());
+        $this->session->set_flashdata('message', 'You have succesfully registered! Please login to continue.');
+        redirect(base_url());
+        
     }
 
     /**
@@ -49,8 +52,10 @@ class Users extends OSF_Controller {
             $this->session->set_userdata('username', $postData["username"]);
             $this->session->set_userdata('email', $loggedInUser->email);
             $this->session->set_userdata('id', $loggedInUser->id);
+        }else{
+            $this->session->set_flashdata('message', 'You have to register first!');
         }
-        redirect(base_url());
+        redirect(base_url());      
     }
 
     public function logout()
@@ -80,18 +85,13 @@ class Users extends OSF_Controller {
         $this->load->model('user');
         $this->user->update($this->input->post());
         redirect(base_url());
-        
-        
+            
     }
-    
-    public function rssSources()
+        
+    public function homepage()
     {
-        $this->loadMainContent('user/rssSources');
-        if (!$this->session->userdata('username')) {
-            $this->session->set_flashdata('message', 'You must be logged in to perform this action!');
-            redirect(base_url());
-        }
-    }
+        redirect(base_url());
+    }    
     
 
 }
