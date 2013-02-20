@@ -24,8 +24,8 @@ class Users_rss extends CI_Model {
         } else {
             $this->user_id = $userId;
         }
-        
-        $this->rss_id = $rssId['rssId'];
+
+        $this->rss_id = $rssId;
         
         $this->db->insert('users_rss', $this);    
     }
