@@ -58,12 +58,25 @@ abstract class OSF_Controller extends CI_Controller {
     /**
      * loads the template which loads the header, the footer
      * and the main content
-     * @param type $mainContent
+     * 
+     * @param mixed $mainContent
      */
     public function loadMainContent($mainContent)
     {
-        $data['main_content'] = $mainContent; 
+        //if string just load the view
+        if (is_string($mainContent)){
+            $data['main_content'] = $mainContent;
+        }
+        //if array load the view and pass 
+        //the rest of the data in the $data var
+        elseif (is_array($mainContent)){
+            $data['main_content'] = $mainContent[0];
+            $data['data'] = $mainContent[1];
+        }
+        
         $this->load->view('includes/template', $data );
+         
+        
     }
 
 }
