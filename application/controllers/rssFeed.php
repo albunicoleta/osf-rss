@@ -25,17 +25,28 @@ class rssFeed extends OSF_Controller {
     public function addRss()
     {
         $this->loadMainContent('rss/addRss');
-    }    
-    
+    }
+
     public function postAddRss()
     {
         $this->load->model('rss');
         $this->rss->create($this->input->post());
         $postData = $this->input->post();
-        
+
         $this->load->model('users_rss');
         $this->users_rss->create($this->rss->getRssByLink($postData["link"])->id);
-    }    
-}
+        foreach ($this->rss->getRssListByUserId($this->session->userdata('id')) as $rssLink) {
+            echo $rssLink . '<br/>';
+        }
+        die();
+    }
 
+    public function listRss()
+    {
+        $this->load->model('rss');
+        $rssList = $this->rss->getRssListByUserId($this->session->userdata('id'));
+        $this->loadMainContent(array('rss/listRss',$rssList));
+    }
+
+}
 
