@@ -32,6 +32,32 @@ class Rss extends Ci_Model {
         }
         return FALSE;
     }
+    
+    /**
+     * Return an array of strings
+     * 
+     * @param mixed $userId
+     * @return array
+     */
+    public function getRssListByUserId($userId)
+    {
+        $this->load->database();
+        $collection = $this->db   
+                    ->select('link')
+                    ->from('rss')
+                    ->join('users_rss','rss.id = users_rss.rss_id')
+                    ->where('users_rss.user_id', $userId)
+                    ->get()
+                    ->result();
+        
+        $list = array();
+        foreach ($collection as $rssLink){
+            $list[] = $rssLink->link;
+        }
+        
+        return $list;
+        
+    }
 
 }
 

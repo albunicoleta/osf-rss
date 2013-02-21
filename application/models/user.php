@@ -23,7 +23,7 @@ class User extends CI_Model {
 
         $this->db->insert('users', $this);
     }
-
+    	
     /**
      * verify if the username/password pair is valid;
      * 
@@ -91,10 +91,6 @@ class User extends CI_Model {
             }
             $this->session->set_userdata($data);
         }
-        
-        
-        
-        
     }    
     
     
