@@ -4,10 +4,6 @@
     $(document).ready(function(){
         $("#form-create").validate({
             rules: {
-                field: {
-                    required: true,
-                    email: true
-                },
                 password: "required",
                 confirm_password: {
                     equalTo: "#password"
