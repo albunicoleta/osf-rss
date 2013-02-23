@@ -18,14 +18,14 @@ class User extends CI_Model {
         $this->load->database();
 
         $this->username = $data['username'];
-        $this->password = $data['password'];
+        $this->password = md5($data['password']);
         $this->email = $data['email_adress'];
-
-        if(!$this->db->insert('users', $this)){
+        
+        if (!$this->db->insert('users', $this)) {
             throw new Exception('Username or email is already in use!');
         }
-        }
-    	
+    }
+
     /**
      * verify if the username/password pair is valid;
      * 
@@ -34,7 +34,7 @@ class User extends CI_Model {
     public function canLogin($username, $password)
     {
         $this->load->database();
-        $query = $this->db->get_where('users', array('username' => $username, 'password' => $password));
+        $query = $this->db->get_where('users', array('username' => $username, 'password' => md5($password)));
         /* if it founds at least one row then its valid */
         if ($query->num_rows()) {
             return TRUE;
@@ -42,7 +42,7 @@ class User extends CI_Model {
 
         return FALSE;
     }
-    
+
     /**
      * returns an User instance that has the provided username;
      * if no user with the provided username has been found it
@@ -75,25 +75,24 @@ class User extends CI_Model {
         $this->load->database();
         $query = $this->db->get_where('users', array('email' => $email));
     }
-    
+
     public function update($data)
     {
         $this->load->database();
-        unset($data['submit']); 
-        foreach($data as $key => $value){
-            if(!trim($value)){
+        unset($data['submit']);
+        foreach ($data as $key => $value) {
+            if (!trim($value)) {
                 unset($data[$key]);
-            }       
+            }
         }
         $this->db->where('id', $this->session->userdata('id'));
-        if($this->db->update('users', $data)){
-            $this->session->set_flashdata('message', 'You have succesfully edited your account!');   
-            if(isset($data['password'])){
+        if ($this->db->update('users', $data)) {
+            $this->session->set_flashdata('message', 'You have succesfully edited your account!');
+            if (isset($data['password'])) {
                 unset($data['password']);
             }
             $this->session->set_userdata($data);
         }
-    }    
-    
-    
+    }
+
 }
