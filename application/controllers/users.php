@@ -23,10 +23,44 @@ class Users extends OSF_Controller {
     public function postCreate()
     {
         $this->load->model('user');
-        $this->user->create($this->input->post());
-        $this->session->set_flashdata('message', 'You have succesfully registered! Please login to continue.');
-        redirect(base_url());
+        try{
+            //if the validation doesn't pass it will throw an exception 
+            //and jump to catch
+            $this->_validatePostCreate();
+            $this->user->create($this->input->post());
+            $this->session->set_flashdata('message', 'You have succesfully registered! Please login to continue.');
+            redirect(base_url());
+        } catch(Exception $e) {
+            $this->session->set_flashdata('message', $e->getMessage());
+            redirect(base_url('users/create'));
+        }
+                
+    }
+    
+    /**
+     * builds an error string for the registration form
+     * @throws Exception
+     */
+    protected function _validatePostCreate()
+    {
+        $_errorString = '';
+        $postData = $this->input->post();
         
+        if (!$postData['username']){
+            $_errorString .= '<p>Please enter a username!</p>';
+        } 
+        if (!$postData['password']){
+            $_errorString .= '<p>Please enter a password!</p>';
+        }
+        if (!$postData['confirm_password'] || $postData['confirm_password'] != $postData['password']){
+            $_errorString .= '<p>Please enter the same password!</p>';
+        }
+        if (!$postData['email_adress']){
+            $_errorString .= '<p>Please enter an email adress!</p>';
+        }
+        if ($_errorString){
+            throw new Exception ($_errorString);
+        }
     }
 
     /**
