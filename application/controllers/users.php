@@ -23,6 +23,8 @@ class Users extends OSF_Controller {
     public function postCreate()
     {
         $this->load->model('user');
+//        var_dump($this->user->canCreate($this->input->post()));
+//        die();
         try{
             //if the validation doesn't pass it will throw an exception 
             //and jump to catch

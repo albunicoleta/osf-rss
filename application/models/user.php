@@ -21,8 +21,10 @@ class User extends CI_Model {
         $this->password = $data['password'];
         $this->email = $data['email_adress'];
 
-        $this->db->insert('users', $this);
-    }
+        if(!$this->db->insert('users', $this)){
+            throw new Exception('Username or email is already in use!');
+        }
+        }
     	
     /**
      * verify if the username/password pair is valid;
@@ -40,7 +42,7 @@ class User extends CI_Model {
 
         return FALSE;
     }
-
+    
     /**
      * returns an User instance that has the provided username;
      * if no user with the provided username has been found it
