@@ -83,8 +83,9 @@ class RSSParser {
 		// Parse the document
 		if (!isset($rawFeed))
 		{
-			$rawFeed = file_get_contents($this->feed_uri);
-		}
+            //prevent warning in case the file doesnt exist
+            $rawFeed = @file_get_contents($this->feed_uri);
+            }
 
 		$xml = new SimpleXmlElement($rawFeed);
 
