@@ -86,12 +86,17 @@ class User extends CI_Model {
             }
         }
         $this->db->where('id', $this->session->userdata('id'));
+        if (isset($data['password'])){
+            $data['password'] = md5($data['password']);
+        }
         if ($this->db->update('users', $data)) {
             $this->session->set_flashdata('message', 'You have succesfully edited your account!');
             if (isset($data['password'])) {
                 unset($data['password']);
             }
             $this->session->set_userdata($data);
+        }else{
+            $this->session->set_flashdata('message', 'The username or email is already in use!');
         }
     }
 
