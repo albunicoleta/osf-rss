@@ -56,7 +56,7 @@ class Users extends OSF_Controller {
             $_errorString .= '<p>Please enter the same password!</p>';
         }
         if (!$postData['email_adress']){
-            $_errorString .= '<p>Please enter an email adress!</p>';
+            $_errorString .= '<p>Please enter an email address!</p>';
         }
         if ($_errorString){
             throw new Exception ($_errorString);
@@ -121,7 +121,7 @@ class Users extends OSF_Controller {
         redirect(base_url());
             
     }
-        
+    
     public function homepage()
     {
         redirect(base_url());
