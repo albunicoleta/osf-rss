@@ -20,7 +20,7 @@ class User extends CI_Model {
         $this->username = $data['username'];
         $this->password = md5($data['password']);
         $this->email = $data['email_adress'];
-        
+
         if (!$this->db->insert('users', $this)) {
             throw new Exception('Username or email is already in use!');
         }
@@ -74,6 +74,19 @@ class User extends CI_Model {
     {
         $this->load->database();
         $query = $this->db->get_where('users', array('email' => $email));
+        if ($query->num_rows()) {
+            //fetch row data from db
+            $row = $query->row();
+            //set row data on instance props
+            $this->username = $row->username;
+            $this->password = $row->password;
+            $this->email = $row->email;
+            $this->id = $row->id;
+
+            return $this;
+        }
+
+        return FALSE;
     }
 
     public function update($data)
@@ -86,7 +99,7 @@ class User extends CI_Model {
             }
         }
         $this->db->where('id', $this->session->userdata('id'));
-        if (isset($data['password'])){
+        if (isset($data['password'])) {
             $data['password'] = md5($data['password']);
         }
         if ($this->db->update('users', $data)) {
@@ -95,9 +108,35 @@ class User extends CI_Model {
                 unset($data['password']);
             }
             $this->session->set_userdata($data);
-        }else{
+        } else {
             $this->session->set_flashdata('message', 'The username or email is already in use!');
         }
     }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    /**
+     * 
+     * @param string $newPass
+     * @return $this
+     */
+    public function setPassword($newPass)
+    {
+        $data = array('password' => md5($newPass));
+        
+        $this->db->where('id', $this->getId());
+        $this->db->update('users',$data);
+        
+        return $this;
+        
+    }    
 
 }

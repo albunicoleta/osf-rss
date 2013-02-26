@@ -21,10 +21,11 @@
                                 <form class="navbar-form pull-right" action="<?php echo base_url('users/postLogin'); ?>" method="post">
                                     <input type="text" name="username" placeholder="Username"/>
                                     <input type="password" name="password" placeholder="Password"/>
-                                    <input class="btn" type="submit" value="Sign In"/>
+                                    <input class="btn" type="submit" value="Sign In"/>                                   
                                     <a class="btn" href="<?php echo base_url('users/create') ?>"> Register </a>
+                                    <a class="btn" href="<?php echo base_url('users/retrievePass') ?>">Forgot password </a>
                                 </form>
-                            <?php endif; ?>                        
+                            <?php endif; ?>   
                         </div>
 
                     </div>    
