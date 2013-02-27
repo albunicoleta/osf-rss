@@ -83,7 +83,7 @@ class rssFeed extends OSF_Controller {
     
     public function changeRss()
     {
-        $this->loadMainContent('rss/changeRss');
+        $this->listRss();
     }
 
 }
