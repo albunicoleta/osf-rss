@@ -73,8 +73,7 @@ class Rss extends Ci_Model {
     public function getRssListByUserId($userId)
     {
         $this->load->database();
-        $collection = $this->db
-            ->select('link')
+        return $this->db
             ->from('rss')
             ->join('users_rss', 'rss.id = users_rss.rss_id')
             ->where('users_rss.user_id', $userId)
@@ -82,12 +81,6 @@ class Rss extends Ci_Model {
             ->get()
             ->result();
 
-        $list = array();
-        foreach ($collection as $rssLink) {
-            $list[] = $rssLink->link;
-        }
-
-        return $list;
     }
     
     /**
