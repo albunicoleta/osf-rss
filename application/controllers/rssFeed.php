@@ -80,6 +80,11 @@ class rssFeed extends OSF_Controller {
             //die();
         }
     }
+    
+    public function changeRss()
+    {
+        
+    }
 
 }
 
