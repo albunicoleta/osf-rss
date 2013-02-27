@@ -29,15 +29,29 @@
         $.post("<?php echo base_url('rssFeed/updateRssLink'); ?>", {id : rssId, value: newValue});
     }
     
+    function deleteRssAjax(rssId) {
+        $.post("<?php echo base_url('rssFeed/deleteRss'); ?>", {id : rssId});
+    }
+    
+    function deleteRss()
+    {
+        //alert('Are you sure ?');
+        $(this).parent().fadeOut();
+        var rssId = getRssId($(this));
+        deleteRssAjax(rssId);
+    }
+    
 
     $(document).ready(function() {
         $(".icon-pencil").click(pencilClicked);
+        $('.icon-remove-sign').click(deleteRss);
     });
     
 </script>
 <ul class="nav">
     <?php foreach ($data as $row): ?>
         <li>
+            <i class="icon-remove-sign"></i>
             <i class="icon-pencil"></i>
             <span><?php echo $row->link; ?></span>
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>

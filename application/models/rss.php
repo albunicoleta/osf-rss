@@ -147,12 +147,19 @@ class Rss extends Ci_Model {
     
     public function setLink($link)
     {
+        $this->load->database();
         $data = array('link' => $link);
         
         $this->db->where('id', $this->getId());
         $this->db->update('rss',$data);
         
         return $this;
+    }
+    
+    public function deleteRssById($id)
+    {
+        $this->load->database();
+        $this->db->delete('rss', array('id' => $id)); 
     }
 }
 
