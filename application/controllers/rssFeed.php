@@ -15,11 +15,6 @@ class rssFeed extends OSF_Controller {
             $this->session->set_flashdata('message', 'You must be logged in to perform this action!');
             redirect(base_url());
         }
-
-        $this->load->library('rssparser');
-        $this->rssparser->set_feed_url('http://www.feedforall.com/sample.xml');
-        $this->rssparser->set_cache_life(30);
-        $rss = $this->rssparser->getFeed(6);
     }
 
     public function addRss()
@@ -40,12 +35,50 @@ class rssFeed extends OSF_Controller {
         }
         die();
     }
-
+    
     public function listRss()
     {
         $this->load->model('rss');
-        $rssList = $this->rss->getRssListByUserId($this->session->userdata('id'));
-        $this->loadMainContent(array('rss/listRss',$rssList));
+        $this->load->library("pagination");
+        try{
+            $config = array();
+            $config["base_url"] = base_url('rssFeed/listRss');
+            $config["total_rows"] = $this->rss->recordCountForCurrentUser();
+            $config["per_page"] = 10;
+            $config["uri_segment"] = 3;	 
+            $config['num_links'] = 3;
+
+            $this->pagination->initialize($config);	 
+
+            $data = $this->rss
+                        ->setOffset($this->uri->segment(3))
+                        ->setLimit($config['per_page'])
+                        ->getRssListForCurrentUser();
+
+            $this->loadMainContent(array('rss/listRss', $data));
+        } catch (Exception $e){
+            $this->session->set_flashdata('message',$e->getMessage());
+            redirect(base_url());
+        }
+    }
+
+    public function viewRss($arg)
+    {
+        $this->load->model('rss');
+        
+        $this->load->library('rssparser');
+        if ($this->rss->getRssById($arg)) {
+            try {
+                $this->rssparser->set_feed_url($this->rss->getRssById($arg)->link);
+                $rssData = $this->rssparser->getFeed(6);
+
+                echo $this->email->print_debugger();
+            } catch (Exception $e) {
+                echo 'stupid link';
+            }
+            //var_dump();
+            //die();
+        }
     }
 
 }

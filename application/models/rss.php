@@ -8,6 +8,37 @@
  */
 class Rss extends Ci_Model {
 
+    public $link;
+    public $id;
+    
+    private $_limit;
+    private $_offset = 0;
+    
+    public function getLimit()
+    {
+        if ($this->_limit === null){
+            $this->setLimit($this->recordCount());
+        }
+        return $this->_limit;
+    }
+    
+    public function getOffset()
+    {
+        return $this->_offset;
+    }
+    
+    public function setLimit($limit){
+        $this->_limit = $limit;
+        
+        return $this;
+    }
+    
+    public function setOffset($offset){
+        $this->_offset = $offset;
+        
+        return $this;
+    }
+    
     public function create($data)
     {
         $this->load->database();
@@ -32,7 +63,7 @@ class Rss extends Ci_Model {
         }
         return FALSE;
     }
-    
+
     /**
      * Return an array of strings
      * 
@@ -42,22 +73,75 @@ class Rss extends Ci_Model {
     public function getRssListByUserId($userId)
     {
         $this->load->database();
-        $collection = $this->db   
-                    ->select('link')
-                    ->from('rss')
-                    ->join('users_rss','rss.id = users_rss.rss_id')
-                    ->where('users_rss.user_id', $userId)
-                    ->get()
-                    ->result();
-        
+        $collection = $this->db
+            ->select('link')
+            ->from('rss')
+            ->join('users_rss', 'rss.id = users_rss.rss_id')
+            ->where('users_rss.user_id', $userId)
+            ->limit($this->getLimit(),$this->getOffset())
+            ->get()
+            ->result();
+
         $list = array();
-        foreach ($collection as $rssLink){
+        foreach ($collection as $rssLink) {
             $list[] = $rssLink->link;
         }
-        
+
         return $list;
-        
+    }
+    
+    /**
+     * Returns an array of rss for currently logged in user
+     * 
+     * @return array
+     * @throws Exception
+     */
+    public function getRssListForCurrentUser()
+    {
+        if (!$this->session->userdata('id')){
+            throw new Exception('No user logged in');
+        }
+        return $this->getRssListByUserId($this->session->userdata('id'));
     }
 
+    /**
+     * @return object
+     */
+    public function getRssById($id)
+    {
+        $this->load->database();
+        $query = $this->db->get_where('rss', array('id' => $id));
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row;
+        }
+    }
+    
+    /**
+     * Returns total rows number
+     * 
+     * @return int
+     */
+    public function recordCount()
+    {
+        return $this->db->count_all('rss');
+    }
+    
+    /**
+     * Return total rows number for current user
+     * 
+     * @return int
+     */
+    public function recordCountForCurrentUser()
+    {
+        $this->load->database();
+        return $this->db
+            ->select('link')
+            ->from('rss')
+            ->join('users_rss', 'rss.id = users_rss.rss_id')
+            ->where('users_rss.user_id', $this->session->userdata('id'))
+            ->count_all_results();
+    }
 }
 
