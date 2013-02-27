@@ -14,6 +14,11 @@ class Rss extends Ci_Model {
     private $_limit;
     private $_offset = 0;
     
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     public function getLimit()
     {
         if ($this->_limit === null){
@@ -74,6 +79,7 @@ class Rss extends Ci_Model {
     {
         $this->load->database();
         return $this->db
+            ->select('rss_id,link')
             ->from('rss')
             ->join('users_rss', 'rss.id = users_rss.rss_id')
             ->where('users_rss.user_id', $userId)
@@ -107,7 +113,9 @@ class Rss extends Ci_Model {
 
         if ($query->num_rows() > 0) {
             $row = $query->row();
-            return $row;
+            $this->id = $row->id;
+            $this->link = $row->link;
+            return $this;
         }
     }
     
@@ -135,6 +143,16 @@ class Rss extends Ci_Model {
             ->join('users_rss', 'rss.id = users_rss.rss_id')
             ->where('users_rss.user_id', $this->session->userdata('id'))
             ->count_all_results();
+    }
+    
+    public function setLink($link)
+    {
+        $data = array('link' => $link);
+        
+        $this->db->where('id', $this->getId());
+        $this->db->update('rss',$data);
+        
+        return $this;
     }
 }
 

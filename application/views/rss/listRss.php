@@ -40,7 +40,7 @@
         <li>
             <i class="icon-pencil"></i>
             <span><?php echo $row->link; ?></span>
-            <input value="<?php echo $row->id; ?>" type="hidden"/>
+            <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
     <?php endforeach; ?>
 </ul>
