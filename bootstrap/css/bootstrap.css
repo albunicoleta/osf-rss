@@ -628,6 +628,7 @@ a:hover {
 
 .container:after {
   clear: both;
+  height: 10px;
 }
 
 .container-fluid {
