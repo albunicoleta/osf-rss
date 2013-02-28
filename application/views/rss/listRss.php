@@ -1,9 +1,9 @@
 <script type="text/javascript">
     function pencilClicked() {
-        var html = $(this).next('span').html();
+        var html = $(this).next('a').html();
         var editableText = $("<textarea />");
         editableText.val(html);
-        $(this).next('span').replaceWith(editableText);
+        $(this).next('a').replaceWith(editableText);
         editableText.focus();
         
         // setup the blur event for this new textarea
@@ -12,7 +12,7 @@
         
     function editableTextBlurred() {
         var html = $(this).val();
-        var viewableText = $("<span>");
+        var viewableText = $("<a>");
         viewableText.html(html);
         var rssId = getRssId($(this));
         updateRssLink(rssId,viewableText.html());
@@ -53,7 +53,7 @@
         <li>
             <i class="icon-remove-sign"></i>
             <i class="icon-pencil"></i>
-            <span><?php echo $row->link; ?></span>
+            <a href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
     <?php endforeach; ?>
