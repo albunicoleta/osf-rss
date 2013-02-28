@@ -41,10 +41,25 @@
         deleteRssAjax(rssId);
     }
     
+    function setRssReadStatusAjax(rssId)
+    {
+        $.post("<?php echo base_url('rssFeed/setIsRead'); ?>", {id : rssId});
+    }
+    
 
     $(document).ready(function() {
         $(".icon-pencil").click(pencilClicked);
         $('.icon-remove-sign').click(deleteRss);
+        $('.icon-check').click(function(){
+           if ($(this).hasClass('icon-white')){
+               $(this).removeClass('icon-white');
+           }
+           else {
+               $(this).addClass('icon-white');
+               setRssReadStatusAjax(getRssId($(this)));
+           }
+            
+        });
     });
     
 </script>
@@ -53,6 +68,7 @@
         <li>
             <i class="icon-remove-sign"></i>
             <i class="icon-pencil"></i>
+            <i class="icon-check"></i>
             <a class="rss-link" href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
