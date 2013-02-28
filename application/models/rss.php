@@ -11,6 +11,7 @@ class Rss extends Ci_Model {
     public $link;
     public $id;
     public $is_read;
+    public $favorite;
     
     private $_limit;
     private $_offset = 0;
@@ -83,7 +84,7 @@ class Rss extends Ci_Model {
     {
         $this->load->database();
         return $this->db
-            ->select('rss_id,link,is_read')
+            ->select('rss_id,link,is_read,favorite')
             ->from('rss')
             ->join('users_rss', 'rss.id = users_rss.rss_id')
             ->where('users_rss.user_id', $userId)
@@ -164,6 +165,22 @@ class Rss extends Ci_Model {
     {
         $this->load->database();
         $data = array('is_read' => $value);
+        
+        $this->db->where('id', $this->getId());
+        $this->db->update('rss',$data);
+        
+        return $this;
+    }
+    
+    public function getFavorite()
+    {
+        return $this->favorite;
+    }
+    
+    public function setFavorite($value)
+    {
+        $this->load->database();
+        $data = array('favorite' => $value);
         
         $this->db->where('id', $this->getId());
         $this->db->update('rss',$data);

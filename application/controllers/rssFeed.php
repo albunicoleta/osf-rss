@@ -130,6 +130,15 @@ class rssFeed extends OSF_Controller {
         $this->load->model('rss');
         $this->rss->getRssById($postData['id'])->setIsRead($postData['status']);
     }
+    
+    public function setFavorite()
+    {
+        if (!($postData = $this->input->post())) {
+            redirect(base_url());
+        }
+        $this->load->model('rss');
+        $this->rss->getRssById($postData['id'])->setFavorite($postData['status']);
+    }    
 
 }
 
