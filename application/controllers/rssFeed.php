@@ -116,6 +116,20 @@ class rssFeed extends OSF_Controller {
         $this->load->model('rss');
         $this->rss->deleteRssById($postData['id']);
     }
+    
+    /**
+     * AJAX method
+     */
+    public function setIsRead()
+    {
+        //we only want this action to be used in AJAX calls
+        //so redirect to homepage is there is no post data
+        if (!($postData = $this->input->post())) {
+            redirect(base_url());
+        }
+        $this->load->model('rss');
+        $this->rss->getRssById($postData['id'])->setIsRead($postData['status']);
+    }
 
 }
 

@@ -10,6 +10,7 @@ class Rss extends Ci_Model {
 
     public $link;
     public $id;
+    public $is_read;
     
     private $_limit;
     private $_offset = 0;
@@ -82,7 +83,7 @@ class Rss extends Ci_Model {
     {
         $this->load->database();
         return $this->db
-            ->select('rss_id,link')
+            ->select('rss_id,link,is_read')
             ->from('rss')
             ->join('users_rss', 'rss.id = users_rss.rss_id')
             ->where('users_rss.user_id', $userId)
@@ -157,6 +158,22 @@ class Rss extends Ci_Model {
         $this->db->update('rss',$data);
         
         return $this;
+    }
+    
+    public function setIsRead($value)
+    {
+        $this->load->database();
+        $data = array('is_read' => $value);
+        
+        $this->db->where('id', $this->getId());
+        $this->db->update('rss',$data);
+        
+        return $this;
+    }
+    
+    public function getIsRead()
+    {
+        return $this->is_read;
     }
     
     public function deleteRssById($id)

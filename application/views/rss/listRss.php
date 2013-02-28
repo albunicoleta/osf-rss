@@ -41,9 +41,9 @@
         deleteRssAjax(rssId);
     }
     
-    function setRssReadStatusAjax(rssId)
+    function setRssReadStatusAjax(rssId,status)
     {
-        $.post("<?php echo base_url('rssFeed/setIsRead'); ?>", {id : rssId});
+        $.post("<?php echo base_url('rssFeed/setIsRead'); ?>", {id : rssId, status: status});
     }
     
 
@@ -53,10 +53,11 @@
         $('.icon-check').click(function(){
            if ($(this).hasClass('icon-white')){
                $(this).removeClass('icon-white');
+               setRssReadStatusAjax(getRssId($(this)),0);
            }
            else {
                $(this).addClass('icon-white');
-               setRssReadStatusAjax(getRssId($(this)));
+               setRssReadStatusAjax(getRssId($(this)),1);
            }
             
         });
@@ -68,7 +69,7 @@
         <li>
             <i class="icon-remove-sign"></i>
             <i class="icon-pencil"></i>
-            <i class="icon-check"></i>
+            <i class="icon-check <?php echo $row->is_read ? 'icon-white' : ''; ?>"></i>
             <a class="rss-link" href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
