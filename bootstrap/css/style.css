@@ -36,7 +36,7 @@ body {height: 100%;}
 }
 .icon-pencil {margin:0 5px;cursor: pointer;}
 .icon-remove-sign,.icon-check,.icon-star-empty,.icon-star {margin:0 5px;cursor: pointer;}
-li{width: auto; background-color:#F4F4F4 ; vertical-align: middle; margin:1em; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
+li{width: auto; background-color:lightgrey ; vertical-align: middle; margin:1em; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
 
 .pagination a, pagination strong{background:#E3E3E3; padding:4px 7px; text-decoration: none; border:1px solid #cac9c9; color:#292929; font-size:13px;}
 .pagination a:hover{font-weight: normal; background: #cac9c9;}
