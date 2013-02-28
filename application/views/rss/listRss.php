@@ -53,7 +53,7 @@
         <li>
             <i class="icon-remove-sign"></i>
             <i class="icon-pencil"></i>
-            <a href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
+            <a class="rss-link" href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
     <?php endforeach; ?>
