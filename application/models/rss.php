@@ -47,10 +47,13 @@ class Rss extends Ci_Model {
     public function create($data)
     {
         $this->load->database();
-        $this->link = $data['link'];
-        $this->db->insert('rss', $this);
-
-        return $this;
+        $this->link = $data['link'];        
+        if ($this->db->insert('rss', $this)){
+            return $this;
+        }
+        else {
+            throw new Exception('Rss already added !');   
+        }
     }
 
     public function getRssByLink($link)
