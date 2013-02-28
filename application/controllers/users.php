@@ -36,7 +36,7 @@ class Users extends OSF_Controller {
             $this->email->to($postData['email_adress']);
 
             $this->email->subject('Thank you for registering with osf-rss');
-            $this->email->message('<p>Welcome to your web app .</p><p>This is your registration data:</p><p>Username:' . $postData['username'] . '<p>Password:' . $postData['password'] . '</p>');
+            $this->email->message("Welcome to your web app .This is your registration data:Username:" . $postData['username'] ."/Password:" . $postData['password']);
             $this->email->send();
             redirect(base_url());
         } catch (Exception $e) {
@@ -172,5 +172,5 @@ class Users extends OSF_Controller {
         
          
     }
-
+     
 }
