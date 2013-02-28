@@ -7,7 +7,12 @@ class Welcome extends OSF_Controller {
 
     public function index()
     {
-        $this->loadMainContent('welcome/index');
+        $this->load->model('rss');
+        $data = '';
+        if ($this->session->userdata('id')){
+            $data = $this->rss->getFavoriteRssListForCurrentUser();
+        }        
+        $this->loadMainContent(array('welcome/index',$data));
     }
 
 }

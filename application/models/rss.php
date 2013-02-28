@@ -94,6 +94,23 @@ class Rss extends Ci_Model {
 
     }
     
+    public function getFavoriteRssListForCurrentUser()
+    {
+        if (!$this->session->userdata('id')){
+            throw new Exception('No user logged in');
+        }
+        $this->load->database();
+        return $this->db
+            ->select('rss_id,link,is_read,favorite')
+            ->from('rss')
+            ->join('users_rss', 'rss.id = users_rss.rss_id')
+            ->where('users_rss.user_id', $this->session->userdata('id'))
+            ->where('favorite',1)
+            ->get()
+            ->result();
+        
+    }
+    
     /**
      * Returns an array of rss for currently logged in user
      * 
