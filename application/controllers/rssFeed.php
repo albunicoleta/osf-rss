@@ -30,10 +30,7 @@ class rssFeed extends OSF_Controller {
 
         $this->load->model('users_rss');
         $this->users_rss->create($this->rss->getRssByLink($postData["link"])->id);
-        foreach ($this->rss->getRssListByUserId($this->session->userdata('id')) as $rssLink) {
-            echo $rssLink . '<br/>';
-        }
-        die();
+        
     }
     
     public function listRss()
