@@ -19,6 +19,9 @@
         $(this).replaceWith(viewableText);
         // setup the click event for this new div
         viewableText.click(pencilClicked);
+        viewableText.addClass('rss-link');
+        viewableText.attr('href',viewableText.text());
+
     }
     
     function getRssId(link){
@@ -84,10 +87,11 @@
     <?php foreach ($data as $row): ?>
         <li>
             <i class="icon-remove-sign"></i>
-            <i class="icon-pencil"></i>
             <i class="icon-check <?php echo $row->is_read ? 'icon-white' : ''; ?>"></i>
             <i class="icon-favorite <?php echo $row->favorite ? 'icon-star' : 'icon-star-empty'; ?>"></i>
+            <i class="icon-pencil"></i>
             <a class="rss-link" href="<?php echo base_url('rssFeed/viewRss/' . $row->rss_id); ?>"><?php echo $row->link; ?></a>
+            
             <input value="<?php echo $row->rss_id; ?>" type="hidden"/>
         </li>
     <?php endforeach; ?>
