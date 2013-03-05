@@ -8,9 +8,17 @@
  */
 class Admin extends OSF_Controller {
     
+    /**
+     * render the admin login form
+     */
     public function index()
     {
         $this->loadMainContent('admin/login');
+    }    
+    
+    public function postLogin()
+    {
+        
     }    
 }
 
