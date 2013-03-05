@@ -13,6 +13,11 @@ class User extends CI_Model {
     public $password;
     public $email;
 
+    /**
+     * creates a new user in the table 'users'
+     * @return $this
+     * @throws Exception
+     */
     public function create($data)
     {
         $this->load->database();
@@ -24,6 +29,7 @@ class User extends CI_Model {
         if (!$this->db->insert('users', $this)) {
             throw new Exception('Username or email is already in use!');
         }
+        return $this;
     }
 
     /**
@@ -48,7 +54,7 @@ class User extends CI_Model {
      * if no user with the provided username has been found it
      * will return false;
      * 
-     * @return User
+     * @return $this
      */
     public function getUserByUsername($username)
     {
@@ -70,6 +76,12 @@ class User extends CI_Model {
         return FALSE;
     }
 
+    /**
+     * returns an User instance that has the provided email;
+     * if no user with the provided email has been found it
+     * will return false;
+     * @return $this
+     */
     public function getUserByEmail($email)
     {
         $this->load->database();
@@ -89,6 +101,10 @@ class User extends CI_Model {
         return FALSE;
     }
 
+    /**
+     * verifies if the new data is valid
+     * @return $this
+     */
     public function update($data)
     {
         $this->load->database();
@@ -111,13 +127,22 @@ class User extends CI_Model {
         } else {
             $this->session->set_flashdata('message', 'The username or email is already in use!');
         }
+        return $this;
     }
     
+    /**
+     * returns the id 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
     
+    /**
+     * return the username
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
