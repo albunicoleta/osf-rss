@@ -1,4 +1,4 @@
-<form>
+<form action="<?php echo base_url('admin/postLogin'); ?>" method="post">
     <label for="username">Admin</label>
     <input type="text" name="username"/>
     <label for="password">Password</label>
