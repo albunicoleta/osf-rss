@@ -48,7 +48,7 @@ class Users extends OSF_Controller {
 
     /**
      * builds an error string for the registration form
-     * @throws Exception
+     * @throws Exception;
      */
     protected function _validatePostCreate()
     {
@@ -101,6 +101,10 @@ class Users extends OSF_Controller {
         redirect(base_url());
     }
 
+    /**
+     * action will be user for the logout
+     * of the current user;
+     */
     public function logout()
     {
         if ($this->session->userdata('username')) {
@@ -114,6 +118,10 @@ class Users extends OSF_Controller {
         redirect(base_url());
     }
 
+    /**
+     * verifies if there is a logged in user
+     * render the edit form
+     */
     public function edit()
     {
         $this->loadMainContent('user/edit');
@@ -123,6 +131,10 @@ class Users extends OSF_Controller {
         }
     }
 
+    /**
+     * action will only be used for editing data 
+     * for a logged in user
+     */
     public function postEdit()
     {
         $this->load->model('user');
@@ -130,16 +142,27 @@ class Users extends OSF_Controller {
         redirect(base_url());
     }
 
+    /**
+     * action will redirect to the homepage
+     */
     public function homepage()
     {
         redirect(base_url());
     }
 
+    /**
+     * render retrievePass form
+     */
     public function retrievePass()
     {
         $this->loadMainContent('user/retrievePass');
     }
 
+    /**
+     * generates a random password to reset 
+     * the current password of an user
+     * 
+     */
     public function postRetrieve()
     {
         $this->load->model('user');
