@@ -8,5 +8,9 @@
  */
 class Admin extends OSF_Controller {
     
+    public function index()
+    {
+        $this->loadMainContent('admin/login');
+    }    
 }
 
