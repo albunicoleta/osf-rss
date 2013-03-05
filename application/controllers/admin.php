@@ -8,10 +8,5 @@
  */
 class Admin extends OSF_Controller {
     
-    public function login()
-    {
-        $this->loadMainContent('admin/login');
-    }    
-    
 }
 
