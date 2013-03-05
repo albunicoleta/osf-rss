@@ -9,6 +9,9 @@ if (!defined('BASEPATH'))
  */
 class rssFeed extends OSF_Controller {
 
+    /**
+     * render Rss Sources;
+     */
     public function rssSources()
     {
         $this->loadMainContent('rss/rssSources');
@@ -18,11 +21,19 @@ class rssFeed extends OSF_Controller {
         }
     }
 
+    /**
+     * render the adding rss form;
+     */
     public function addRss()
     {
         $this->loadMainContent('rss/addRss');
     }
 
+    /**
+     * action will be used to save the rss link
+     * in the table 'rss'
+     * @throws Exception;
+     */
     public function postAddRss()
     {
         try {
@@ -39,6 +50,10 @@ class rssFeed extends OSF_Controller {
         redirect('rssFeed/listRss');
     }
 
+    /**
+     * action will be used to list all the rss links
+     * added by the user in session;
+     */
     public function listRss()
     {
         $this->load->model('rss');
@@ -65,6 +80,12 @@ class rssFeed extends OSF_Controller {
         }
     }
 
+    /**
+     * displays the rss feed
+     * action will be used to validate the rss link
+     * @param type $arg
+     * @throws Exception;
+     */
     public function viewRss($arg)
     {
         $this->load->model('rss');
@@ -85,6 +106,9 @@ class rssFeed extends OSF_Controller {
         }
     }
 
+    /**
+     * display output of listRss action;
+     */
     public function changeRss()
     {
         $this->listRss();
@@ -132,6 +156,11 @@ class rssFeed extends OSF_Controller {
         $this->rss->getRssById($postData['id'])->setIsRead($postData['status']);
     }
     
+    /**
+     * ajax method
+     * action will set a favorite link
+     * for the user in session;
+     */
     public function setFavorite()
     {
         if (!($postData = $this->input->post())) {
