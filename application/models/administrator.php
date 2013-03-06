@@ -9,6 +9,10 @@
 class Administrator extends CI_Model {
 
     /**
+     * db table name
+     */
+    const TABLE_NAME = 'administrators';
+    /**
      * @var int 
      */
     private $_id;
@@ -38,7 +42,7 @@ class Administrator extends CI_Model {
         if ($query->num_rows()) {
             return TRUE;
         }
-
+        
         return FALSE;
     }
 
@@ -99,6 +103,24 @@ class Administrator extends CI_Model {
     public function setPassword($password)
     {
         $this->_password = $password;
+        return $this;
+    }
+    
+    /**
+     * create a new administrator =
+     * insert new row in 'administrators' table
+     * 
+     * @return $this
+     */
+    public function save()
+    {
+        $data = array(
+            'username' => $this->_username,
+            'password' => md5($this->_password)
+        );
+        
+        $this->db->insert(self::TABLE_NAME, $data);
+        
         return $this;
     }
 }
