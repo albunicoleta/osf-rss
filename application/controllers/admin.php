@@ -29,11 +29,18 @@ class Admin extends OSF_Controller {
         $this->login();
     }
     
+    /**
+     * render the admin login form
+     */
     public function login()
     {
         $this->loadAdminContent('admin/login');
     }
     
+    /**
+     * action will be used for logging in
+     * valid users
+     */
     public function postLogin()
     {
         //1. get post data
@@ -50,11 +57,18 @@ class Admin extends OSF_Controller {
         redirect(base_url('admin'));
     }   
     
+   /**
+    * render the admin registration form
+    */
     public function register()
     {
         $this->loadAdminContent('admin/register');
     }
     
+    /**
+     * action will be used to save data 
+     * from the admin registration form
+     */
     public function postRegister()
     {
         $postData = $this->input->post();
@@ -73,23 +87,42 @@ class Admin extends OSF_Controller {
         redirect(base_url('admin/register'));
     }
     
+    /**
+     * sets the admin session
+     */
     private function _loginAdmin()
     {
         $this->load->model('administrator');
         $this->session->set_userdata(self::SESSION_KEY, $this->administrator->getUsername());
     }
     
+    /**
+     * clears the session
+     */
     private function _clearSession()
     {
         $this->session->unset_userdata(self::SESSION_KEY);
     }
     
+    /**
+     * verifies if the admin is logged in
+     * @return boolean
+     */
     private function _isAdminLoggedIn()
     {
         if($this->session->userdata(self::SESSION_KEY)){
             return TRUE;            
         }
         return FALSE;
+    }
+    
+    public function logout()
+    {
+        if($this->_isAdminLoggedIn()){
+            $this->_clearSession();
+            $this->session->set_flashdata('message', 'You have succesfully logged out!');
+        }
+        redirect(base_url('admin/login'));
     }
 }
 
