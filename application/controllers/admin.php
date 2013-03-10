@@ -22,11 +22,11 @@ class Admin extends OSF_Controller {
     }
     
     /**
-     * render the admin login form
+     * render the admin index view
      */  
     public function index()
     {
-        $this->login();
+        $this->loadAdminContent('admin/index');
     }
     
     /**
