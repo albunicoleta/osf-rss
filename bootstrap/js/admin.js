@@ -15,7 +15,7 @@ $(function(){
     $('#navbar-users-data').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('admin/ajaxUsers');
+        $('.ajax-container').load('/admin/ajaxUsers');
     });
     
     /**
@@ -24,13 +24,13 @@ $(function(){
     $('#navbar-rss-data').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('admin/ajaxRss');
+        $('.ajax-container').load('/admin/ajaxRss');
     });
     
     $('#navbar-users-add').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('admin/ajaxUserCreate');
+        $('.ajax-container').load('/admin/ajaxUserCreate');
     });
     
     $(document).on("click",".icon-pencil",function(event){
