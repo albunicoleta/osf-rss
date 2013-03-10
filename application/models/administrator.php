@@ -40,6 +40,7 @@ class Administrator extends CI_Model {
         $query = $this->db->get_where('administrators', array('username' => $username, 'password' => $password));
         /* if it founds at least one row then its valid */
         if ($query->num_rows()) {
+            $this->setUsername($username)->setPassword($password);
             return TRUE;
         }
         

@@ -8,9 +8,22 @@
  */
 class Admin extends OSF_Controller {
     
+    const SESSION_KEY = 'admin_username';
+    
+    public function __construct()
+    {
+        parent::__construct();
+        if(!$this->_isAdminLoggedIn() 
+            && $this->router->fetch_method()!= 'login' 
+            && $this->router->fetch_method()!= 'postLogin'){
+            $this->session->set_flashdata('message', 'You must be logged in to perform this action!');
+            redirect(base_url('admin/login'));
+        }
+    }
+    
     /**
      * render the admin login form
-     */
+     */  
     public function index()
     {
         $this->login();
@@ -30,6 +43,7 @@ class Admin extends OSF_Controller {
         if ($this->administrator->canLogin($postData["username"], $postData["password"])) {
             /* we set user data on session */
             $this->session->set_flashdata('message', 'Welcome admin!');
+            $this->_loginAdmin();
         } else {
             $this->session->set_flashdata('message', 'Your username or password is incorrect!');
         }
@@ -59,5 +73,23 @@ class Admin extends OSF_Controller {
         redirect(base_url('admin/register'));
     }
     
+    private function _loginAdmin()
+    {
+        $this->load->model('administrator');
+        $this->session->set_userdata(self::SESSION_KEY, $this->administrator->getUsername());
+    }
+    
+    private function _clearSession()
+    {
+        $this->session->unset_userdata(self::SESSION_KEY);
+    }
+    
+    private function _isAdminLoggedIn()
+    {
+        if($this->session->userdata(self::SESSION_KEY)){
+            return TRUE;            
+        }
+        return FALSE;
+    }
 }
 
