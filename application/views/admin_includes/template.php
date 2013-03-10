@@ -6,10 +6,11 @@
                 <div class="navbar"> 
                     <div class="navbar-inner">
                         <div class="container">
+                            <?php $this->load->view('admin_includes/navbar'); ?>
                             <?php if ($this->session->flashdata('message')): ?>
-                                <div class="alert">
-                                    <?php echo $this->session->flashdata('message'); ?>
-                                </div>
+                            <div class="alert">
+                                <?php echo $this->session->flashdata('message'); ?>
+                            </div>
                             <?php endif; ?>
                             <div class="form-horizontal">    
                                 <?php $this->load->view($main_content); ?>
