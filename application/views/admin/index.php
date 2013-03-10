@@ -5,6 +5,7 @@
                 <ul class="nav">
                     <li id="navbar-users-data"><a href="#">Users</a></li>
                     <li id="navbar-rss-data"><a href="#">Rss</a></li>
+                    <li id="navbar-users-add"><a href="#">Create new user</a></li>
                 </ul>
             </div>
         </div>

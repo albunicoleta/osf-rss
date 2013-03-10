@@ -13,10 +13,7 @@ class Rss extends OSF_Model {
      * @var string $link
      */
     public $link;
-    /** 
-     * @var int $id
-     */
-    public $id;
+    
     /**
      * @var bool 
      */
@@ -25,16 +22,7 @@ class Rss extends OSF_Model {
      * @var bool 
      */
     public $favorite;
-    
-    /**
-     * returns the id
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
+        
     /**
      * saves a new row in the 'rss' table
      * the link is unique
@@ -254,10 +242,7 @@ class Rss extends OSF_Model {
      */
     public function deleteRssById($id)
     {
-        $this->load->database();
-        $this->db->delete('rss', array('id' => $id));
-        
-        return $this;
+        return $this->deleteById($id);
     }
 }
 

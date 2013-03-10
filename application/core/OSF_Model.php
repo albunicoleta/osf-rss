@@ -2,8 +2,17 @@
 
 class OSF_Model extends CI_Model {
 
-    
+    /**
+     *
+     * @var string
+     */   
     protected $_tableName = null;
+    
+    /** 
+     * @var int $id
+     */
+    public $id;
+    
     /**
      *
      * @var int 
@@ -15,7 +24,27 @@ class OSF_Model extends CI_Model {
      * @var int
      */
     private $_offset = 0;
-
+    
+     /**
+     * returns the id
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * 
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        
+        return $this;
+    }
     /**
      * get table name associated with model
      * 
@@ -113,6 +142,22 @@ class OSF_Model extends CI_Model {
     public function recordCount()
     {
         return $this->db->count_all($this->getTableName());
+    }
+    
+    /**
+     * Delete row with $id value
+     * 
+     * @return $this
+     */
+    public function deleteById($id = null)
+    {
+        if ($id === null){
+            $id = $this->getId();
+        }
+        
+        $this->db->delete($this->getTableName(), array('id' => $id));
+        
+        return $this;
     }
 
 }

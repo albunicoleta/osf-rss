@@ -10,7 +10,6 @@ class User extends OSF_Model {
 
     protected $_tableName = 'users';
     
-    public $id;
     public $username;
     public $password;
     public $email;
@@ -22,13 +21,12 @@ class User extends OSF_Model {
      */
     public function create($data)
     {
-        $this->load->database();
-
+       
         $this->username = $data['username'];
         $this->password = md5($data['password']);
         $this->email = $data['email_adress'];
 
-        if (!$this->db->insert('users', $this)) {
+        if (!$this->db->insert($this->getTableName(), $this)) {
             throw new Exception('Username or email is already in use!');
         }
         return $this;
@@ -130,15 +128,6 @@ class User extends OSF_Model {
             $this->session->set_flashdata('message', 'The username or email is already in use!');
         }
         return $this;
-    }
-
-    /**
-     * returns the id 
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

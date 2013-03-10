@@ -176,6 +176,11 @@ class Admin extends OSF_Controller {
 
         $this->load->view('admin/ajax/rss',$data);
     }
+    
+    public function ajaxUserCreate()
+    {
+        $this->load->view('admin/ajax/user_create');
+    }
 
 }
 

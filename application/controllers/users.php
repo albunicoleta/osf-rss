@@ -1,6 +1,8 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+
 /**
  * Description of user
  *
@@ -37,7 +39,7 @@ class Users extends OSF_Controller {
             $this->email->to($postData['email_adress']);
 
             $this->email->subject('Thank you for registering with osf-rss');
-            $this->email->message("Welcome to your web app .This is your registration data:Username:" . $postData['username'] ."/Password:" . $postData['password']);
+            $this->email->message("Welcome to your web app .This is your registration data:Username:" . $postData['username'] . "/Password:" . $postData['password']);
             $this->email->send();
             redirect(base_url());
         } catch (Exception $e) {
@@ -178,23 +180,65 @@ class Users extends OSF_Controller {
 
         $this->email->subject("Reset your Password!");
         $this->email->message("This is your new password: $string");
-        try{
+        try {
             $this->email->send();
-        }
-        catch(Exception $e){ 
+        } catch (Exception $e) {
             $this->session->set_flashdata('message', 'Unable to send email.Please try again later!');
         }
-        
-        if($user = $this->user->getUserByEmail($this->input->post('email'))){
-           $user->setPassword($string);
-           $this->session->set_flashdata('message', 'The new password has been sent. Please check your email!');        
-        }else{
-           $this->session->set_flashdata('message', 'The email has not been found!');
+
+        if ($user = $this->user->getUserByEmail($this->input->post('email'))) {
+            $user->setPassword($string);
+            $this->session->set_flashdata('message', 'The new password has been sent. Please check your email!');
+        } else {
+            $this->session->set_flashdata('message', 'The email has not been found!');
         }
-        
+
         redirect(base_url());
-        
-         
     }
-     
+
+    /**
+     * delete user by $id;
+     * only accesable for admin
+     * 
+     * @param int $id
+     */
+    public function delete($id)
+    {
+        $this->load->model('user');
+        //if admin is logged in
+        if ($this->session->userdata('admin_username')) {
+            try {
+                $this->user->deleteById($id);
+                $response = array('success' => true);
+            } catch (Exception $e) {
+                $response = array('success' => false, 'message' => $e->getMessage());
+            }
+            //send json response
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+        }
+    }
+
+    public function add()
+    {
+        if ($this->input->post() && $this->session->userdata('admin_username')) {
+            $this->load->model('user');
+            try {
+                $this->user->create($this->input->post());
+                $response = array('success' => true);
+                $this->session->set_flashdata('message','New user created');
+            }
+            catch (Exception $e){
+                $response = array('success' => false, 'message' => $e->getMessage());
+                $this->session->set_flashdata('message',$e->getMessage());
+            }
+            //send json response
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+            redirect('admin');
+        }
+    }
+
 }
