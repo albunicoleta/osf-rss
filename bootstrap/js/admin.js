@@ -53,3 +53,12 @@ function deleteUser(id,obj)
         }
     });
 }
+function deleteLink(id,obj)
+{
+    var parentRow = $(obj).parents('tr');
+    $.get('/rssFeed/delete/'+id, function(data) {
+        if (data.success){
+            parentRow.fadeOut();
+        }
+    });
+}

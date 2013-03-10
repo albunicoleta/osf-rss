@@ -168,7 +168,31 @@ class rssFeed extends OSF_Controller {
         }
         $this->load->model('rss');
         $this->rss->getRssById($postData['id'])->setFavorite($postData['status']);
-    }    
+    }   
+    
+     /**
+     * delete link by $id;
+     * only accesable for admin
+     * 
+     * @param int $id
+     */
+    public function delete($id)
+    {
+        $this->load->model('rss');
+        //if admin is logged in
+        if ($this->session->userdata('admin_username')) {
+            try {
+                $this->rss->deleteRssById($id);
+                $response = array('success' => true);
+            } catch (Exception $e) {
+                $response = array('success' => false, 'message' => $e->getMessage());
+            }
+            //send json response
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+        }
+    }
 
 }
 
