@@ -119,7 +119,9 @@ class Administrator extends CI_Model {
             'password' => md5($this->_password)
         );
         
-        $this->db->insert(self::TABLE_NAME, $data);
+        if (!$this->db->insert(self::TABLE_NAME, $data)){
+            throw new Exception('Could not save new administrator');
+        }
         
         return $this;
     }
