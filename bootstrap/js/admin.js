@@ -33,6 +33,17 @@ $(function(){
         $('.ajax-container').load('admin/ajaxUserCreate');
     });
     
+    $(document).on("click",".icon-pencil",function(event){
+        parentRow = $(this).parents('tr');
+        console.log(parentRow.find('.user-username'));
+        var data = {
+            username: parentRow.find('.user-username').val(),
+            email : parentRow.find('.user-email').val(),
+            id : parentRow.find('.user-id').text()
+        };
+        $.post('/users/update',data);
+    });
+    
     /**
      * add ajax to pagination
      */

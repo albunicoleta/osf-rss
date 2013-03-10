@@ -219,7 +219,11 @@ class Users extends OSF_Controller {
                 ->set_output(json_encode($response));
         }
     }
-
+    
+    /**
+     * add user with POST data
+     * 
+     */
     public function add()
     {
         if ($this->input->post() && $this->session->userdata('admin_username')) {
@@ -227,11 +231,31 @@ class Users extends OSF_Controller {
             try {
                 $this->user->create($this->input->post());
                 $response = array('success' => true);
-                $this->session->set_flashdata('message','New user created');
-            }
-            catch (Exception $e){
+                $this->session->set_flashdata('message', 'New user created');
+            } catch (Exception $e) {
                 $response = array('success' => false, 'message' => $e->getMessage());
-                $this->session->set_flashdata('message',$e->getMessage());
+                $this->session->set_flashdata('message', $e->getMessage());
+            }
+            //send json response
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+            redirect('admin');
+        }
+    }
+
+    /**
+     * update user with POST data
+     */
+    public function update()
+    {
+        if ($this->input->post() && $this->session->userdata('admin_username')) {
+            $this->load->model('user');
+            try {
+                $this->user->update($this->input->post());
+                $response = array('success' => true);
+            } catch (Exception $e) {
+                $response = array('success' => false, 'message' => $e->getMessage());
             }
             //send json response
             $this->output

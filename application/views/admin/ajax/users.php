@@ -13,9 +13,9 @@
                     <i class="icon-remove-sign" onclick="deleteUser(<?php echo $user->id; ?>,this)"></i>
                     <i class="icon-pencil"></i>
                 </td>
-                <td><span><?php echo $user->id; ?></span></td>
-                <td><input type="text" value="<?php echo $user->username; ?>"/></td>
-                <td><input type="text" value="<?php echo $user->email; ?>"/></td>
+                <td><span class="user-id"><?php echo $user->id; ?></span></td>
+                <td><input class="user-username" type="text" name="username" value="<?php echo $user->username; ?>"/></td>
+                <td><input class="user-email" type="text" name="email" value="<?php echo $user->email; ?>"/></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

@@ -119,7 +119,7 @@ class User extends OSF_Model {
             $data['password'] = md5($data['password']);
         }
         if ($this->db->update('users', $data)) {
-            $this->session->set_flashdata('message', 'You have succesfully edited your account!');
+            $this->session->set_flashdata('message', 'You have succesfully edited the account!');
             if (isset($data['password'])) {
                 unset($data['password']);
             }
