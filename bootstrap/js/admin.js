@@ -15,7 +15,7 @@ $(function(){
     $('#navbar-users-data').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('/admin/ajaxUsers');
+        $('.ajax-container').load(BASE_URL + 'admin/ajaxUsers');
     });
     
     /**
@@ -24,24 +24,23 @@ $(function(){
     $('#navbar-rss-data').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('/admin/ajaxRss');
+        $('.ajax-container').load(BASE_URL + 'admin/ajaxRss');
     });
     
     $('#navbar-users-add').click(function(){
         removeActiveClassFromFormAdmin();
         $(this).addClass('active');
-        $('.ajax-container').load('/admin/ajaxUserCreate');
+        $('.ajax-container').load(BASE_URL + 'admin/ajaxUserCreate');
     });
     
     $(document).on("click",".icon-pencil",function(event){
         parentRow = $(this).parents('tr');
-        console.log(parentRow.find('.user-username'));
         var data = {
             username: parentRow.find('.user-username').val(),
             email : parentRow.find('.user-email').val(),
             id : parentRow.find('.user-id').text()
         };
-        $.post('/users/update',data);
+        $.post(BASE_URL + 'users/update',data);
     });
     
     /**
@@ -58,7 +57,7 @@ $(function(){
 function deleteUser(id,obj)
 {
     var parentRow = $(obj).parents('tr');
-    $.get('/users/delete/'+id, function(data) {
+    $.get(BASE_URL + 'users/delete/'+id, function(data) {
         if (data.success){
             parentRow.fadeOut();
         }
@@ -67,7 +66,7 @@ function deleteUser(id,obj)
 function deleteLink(id,obj)
 {
     var parentRow = $(obj).parents('tr');
-    $.get('/rssFeed/delete/'+id, function(data) {
+    $.get(BASE_URL + 'rssFeed/delete/'+id, function(data) {
         if (data.success){
             parentRow.fadeOut();
         }

@@ -6,3 +6,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bootstrap/css/style.css" /> 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css" /> 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bootstrap/css/bootstrap-responsive.css" />
+<script type="text/javascript">
+    var BASE_URL="<?php echo base_url(); ?>";
+</script>
