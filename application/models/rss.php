@@ -6,8 +6,9 @@
  * @author Nicoleta
  * @package Osf_rss
  */
-class Rss extends Ci_Model {
+class Rss extends OSF_Model {
 
+    protected $_tableName = 'rss';
     /**
      * @var string $link
      */
@@ -24,16 +25,6 @@ class Rss extends Ci_Model {
      * @var bool 
      */
     public $favorite;
-    /**
-     *
-     * @var int 
-     */
-    private $_limit;
-    /**
-     *
-     * @var int
-     */
-    private $_offset = 0;
     
     /**
      * returns the id
@@ -42,49 +33,6 @@ class Rss extends Ci_Model {
     public function getId()
     {
         return $this->id;
-    }
-    
-    /**
-     * return $this->_limit
-     * @return int
-     */
-    public function getLimit()
-    {
-        if ($this->_limit === null){
-            $this->setLimit($this->recordCount());
-        }
-        return $this->_limit;
-    }
-    
-    /**
-     * return $this->_offset
-     * @return int
-     */
-    public function getOffset()
-    {
-        return $this->_offset;
-    }
-    
-    /**
-     * set _limit for current instance
-     * @param int $limit
-     * @return $this
-     */
-    public function setLimit($limit){
-        $this->_limit = $limit;
-        
-        return $this;
-    }
-    
-    /**
-     * set _offset for current instance
-     * @param int $offset
-     * @return $this
-     */
-    public function setOffset($offset){
-        $this->_offset = $offset;
-        
-        return $this;
     }
     
     /**
@@ -205,15 +153,6 @@ class Rss extends Ci_Model {
         return FALSE;
     }
     
-    /**
-     * Returns total rows number
-     * 
-     * @return int
-     */
-    public function recordCount()
-    {
-        return $this->db->count_all('rss');
-    }
     
     /**
      * Return total rows number for current user
