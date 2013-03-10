@@ -3,10 +3,11 @@
         <div class="navbar-inner">
             <div class="container">
                 <ul class="nav">
-                    <li class="active"><a href="#">Users</a></li>
-                    <li><a href="#">Rss</a></li>
+                    <li id="navbar-users-data"><a href="#">Users</a></li>
+                    <li id="navbar-rss-data"><a href="#">Rss</a></li>
                 </ul>
             </div>
         </div>
     </div>
+    <div class="ajax-container"></div>
 </div>

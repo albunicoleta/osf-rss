@@ -153,7 +153,28 @@ class Admin extends OSF_Controller {
 
     public function ajaxRss()
     {
-        $this->load->view('admin/ajax/rss');
+        $this->load->model('rss');
+        $this->load->library("pagination");
+        try {
+            $config = array();
+            $config["base_url"] = base_url('admin/ajaxRss');
+            $config["total_rows"] = $this->rss->recordCount();
+            $config["per_page"] = 5;
+            $config["uri_segment"] = 3;
+            $config['num_links'] = 3;
+
+            $this->pagination->initialize($config);
+            
+            $data['rssFeed'] = $this->rss
+                ->setOffset($this->uri->segment(3))
+                ->setLimit($config['per_page'])
+                ->getAll();
+        } catch (Exception $e) {
+            $this->session->set_flashdata('message', $e->getMessage());
+            redirect(base_url('admin'));
+        }
+
+        $this->load->view('admin/ajax/rss',$data);
     }
 
 }
