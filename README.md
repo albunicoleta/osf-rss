@@ -17,3 +17,6 @@ Installation
 - Git clone the repository
 - mod_rewrite should be enabled (if not use index.php in URL)
 - configure your database settings in application/database.php (database will attempt to autocreate on first run )
+- admin section available in base_url/admin
+- the login data is: admin: admin
+                     password: 123456   
