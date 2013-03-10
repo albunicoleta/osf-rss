@@ -6,13 +6,15 @@
  * @author Nicoleta
  * @package Osf_user
  */
-class User extends CI_Model {
+class User extends OSF_Model {
 
+    protected $_tableName = 'users';
+    
     public $id;
     public $username;
     public $password;
     public $email;
-
+    
     /**
      * creates a new user in the table 'users'
      * @return $this
@@ -129,7 +131,7 @@ class User extends CI_Model {
         }
         return $this;
     }
-    
+
     /**
      * returns the id 
      * @return int
@@ -138,7 +140,7 @@ class User extends CI_Model {
     {
         return $this->id;
     }
-    
+
     /**
      * return the username
      * @return string
@@ -147,7 +149,7 @@ class User extends CI_Model {
     {
         return $this->username;
     }
-    
+
     /**
      * 
      * @param string $newPass
@@ -156,12 +158,12 @@ class User extends CI_Model {
     public function setPassword($newPass)
     {
         $data = array('password' => md5($newPass));
-        
+
         $this->db->where('id', $this->getId());
         $this->db->update('users',$data);
-        
+
         return $this;
         
-    }    
+    }
 
 }
